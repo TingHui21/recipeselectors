@@ -115,9 +115,9 @@ step_select_mrmr_new <- function(terms, role, trained, outcome, top_p,
 #' @export
 prep.step_select_mrmr <- function(x, training, info = NULL, ...) {
   # extract response and predictor names
-  y_name <- recipes::terms_select(x$outcome, info = info)
+  x_names <- recipes::recipes_eval_select(quos = x$terms,data = training, info = info)
+  y_name <- recipes::recipes_eval_select(quos = x$outcome,data = training, info = info)  
   y_name <- y_name[1]
-  x_names <- recipes::terms_select(terms = x$terms, info = info)
 
   # check criteria
   check_criteria(x$top_p, x$threshold, match.call())
