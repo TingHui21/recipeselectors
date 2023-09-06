@@ -125,10 +125,10 @@ step_select_infgain_new <- function(terms, role, trained, outcome, top_p,
 #' @export
 prep.step_select_infgain <- function(x, training, info = NULL, ...) {
   # extract response and predictor names
-  x_names <- recipes::recipes_eval_select(terms = x$terms, info = info)
-  y_name <- recipes::recipes_eval_select(x$outcome, info = info)
+  x_names <- recipes::recipes_eval_select(quos = enquos(!!x$terms),data = training, info = info)
+  y_name <- recipes::recipes_eval_select(quos = enquos(!!x$outcome),data = training, info = info)
   y_name <- y_name[1]
-
+  
   # check criteria
   check_criteria(x$top_p, x$threshold, match.call())
   check_zero_one(x$threshold)
