@@ -97,8 +97,8 @@ step_select_boruta_new <- function(terms, role, trained, outcome, exclude,
 prep.step_select_boruta <- function(x, training, info = NULL, ...) {
 
   # translate the terms arguments
-  x_names <- recipes::terms_select(terms = x$terms, info = info)
-  y_name <- recipes::terms_select(x$outcome, info = info)
+  x_names <- recipes::recipes_eval_select(quos = x$terms,data = training, info = info)
+  y_name <- recipes::recipes_eval_select(quos = x$outcome,data = training, info = info)
   y_name <- y_name[1]
 
   if (length(x_names) > 0) {
